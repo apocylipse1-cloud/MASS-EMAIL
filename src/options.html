@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MailBlast Lite - Options</title>
+    <style>
+      body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: #0f1117; color: #e6e9ef; }
+      .field { margin-bottom: 14px; }
+      label { display:block; font-size: 12px; opacity: .8; margin-bottom: 6px; }
+      input { width: 460px; max-width: 100%; background: #161925; color: #e6e9ef; border: 1px solid #2a2f3a; border-radius: 8px; padding: 8px; }
+      .btn { background: #1b1f2a; color: #e6e9ef; border: 1px solid #2a2f3a; border-radius: 10px; padding: 8px 10px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h2>MailBlast Lite - Options</h2>
+    <div class="field">
+      <label>Tracking endpoint (Apps Script Web App URL)</label>
+      <input id="trackingUrl" placeholder="https://script.google.com/macros/s/.../exec" />
+    </div>
+    <div class="field">
+      <label>Link redirect domain (optional)</label>
+      <input id="redirectDomain" placeholder="https://script.google.com/macros/s/.../exec" />
+    </div>
+    <button id="save" class="btn">Save</button>
+
+    <script>
+      function get(key) { return new Promise(r => chrome.storage.local.get([key], v => r(v[key]))); }
+      function set(patch) { return new Promise(r => chrome.storage.local.set(patch, r)); }
+      async function load() {
+        document.getElementById('trackingUrl').value = (await get('trackingUrl')) || '';
+        document.getElementById('redirectDomain').value = (await get('redirectDomain')) || '';
+      }
+      document.getElementById('save').onclick = async () => {
+        await set({ trackingUrl: document.getElementById('trackingUrl').value.trim(), redirectDomain: document.getElementById('redirectDomain').value.trim() });
+        alert('Saved');
+      };
+      load();
+    </script>
+  </body>
+  </html>
+
