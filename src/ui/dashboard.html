@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="dashboard.css" />
+  <title>MailBlast Lite</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: transparent; }
+  </style>
+  <script defer src="dashboard.js"></script>
+  <script>
+    // Prevent click hijacking by Gmail; keep focus within iframe
+    window.addEventListener('mousedown', (e) => e.stopPropagation(), true);
+    window.addEventListener('mouseup', (e) => e.stopPropagation(), true);
+    window.addEventListener('click', (e) => e.stopPropagation(), true);
+  </script>
+  </head>
+<body>
+  <div id="app" class="mb-app">
+    <div class="mb-header">
+      <div class="mb-title">MailBlast Lite</div>
+      <div class="mb-actions">
+        <button id="signInBtn" class="mb-btn">Sign in</button>
+        <button id="newCampaignBtn" class="mb-btn">New Campaign</button>
+      </div>
+    </div>
+
+    <div class="mb-grid">
+      <div class="mb-card">
+        <div class="mb-card-title">Campaigns</div>
+        <div id="campaignsList" class="mb-list"></div>
+      </div>
+      <div class="mb-card">
+        <div class="mb-card-title">Sequences</div>
+        <div id="sequencesList" class="mb-list"></div>
+      </div>
+      <div class="mb-card">
+        <div class="mb-card-title">Analytics</div>
+        <div id="analytics" class="mb-list"></div>
+      </div>
+      <div class="mb-card">
+        <div class="mb-card-title">Settings</div>
+        <div id="settings" class="mb-list"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

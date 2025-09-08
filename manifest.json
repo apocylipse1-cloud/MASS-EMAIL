@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "MailBlast Lite - Gmail Mass Mailer",
+  "version": "0.1.0",
+  "description": "Lightweight, free, and private Gmail mass emailing with Sheets merge, sequences, and analytics.",
+  "action": {
+    "default_title": "MailBlast Lite",
+    "default_popup": "src/popup.html"
+  },
+  
+  "permissions": [
+    "identity",
+    "identity.email",
+    "storage",
+    "alarms",
+    "notifications",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://gmail.googleapis.com/*",
+    "https://www.googleapis.com/*",
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "src/service_worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["src/content_script.js"],
+      "css": ["src/styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "src/options.html",
+  "oauth2": {
+    "client_id": "REPLACE_WITH_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/gmail.send",
+      "https://www.googleapis.com/auth/spreadsheets.readonly",
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/ui/dashboard.html",
+        "src/ui/dashboard.js",
+        "src/ui/dashboard.css",
+        "src/assets/*"
+      ],
+      "matches": ["https://mail.google.com/*"]
+    }
+  ]
+}
+
